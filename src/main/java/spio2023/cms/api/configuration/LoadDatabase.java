@@ -5,11 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import spio2023.cms.api.database.device.TestDevice;
+import spio2023.cms.api.database.instrument.ReferenceInstrument;
+import spio2023.cms.api.database.procedure.ProcedureData;
 import spio2023.cms.api.repository.DeviceRepository;
 import spio2023.cms.api.repository.InstrumentRepository;
-import spio2023.cms.database.device.TestDevice;
-import spio2023.cms.database.instrument.ReferenceInstrument;
-import spio2023.cms.database.procedure.ProcedureData;
 import spio2023.cms.model.sample.SampleData_BC06;
 import spio2023.cms.model.sample.SampleData_PP_METEX_3610;
 

@@ -5,9 +5,10 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.web.bind.annotation.PathVariable;
-import spio2023.cms.database.BaseEntity;
+import spio2023.cms.api.database.BaseEntity;
 
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -21,12 +22,16 @@ public abstract class SuperController<E extends BaseEntity, C> {
         this.repository = repository;
     }
 
-    protected CollectionModel<EntityModel<E>> getAll(Link... links) {
+    public CollectionModel<EntityModel<E>> allWhere(Predicate<? super E> filter, Link... links) {
         List<EntityModel<E>> entities = repository.findAll().stream()
+                .filter(filter)
                 .map(entity -> toModel(entity, links))
                 .collect(Collectors.toList());
-
         return CollectionModel.of(entities, linkTo(getController().all()).withSelfRel());
+    }
+
+    protected CollectionModel<EntityModel<E>> getAll(Link... links) {
+        return allWhere(e -> true, links);
     }
 
     protected EntityModel<E> getOne(Long id, Link... links) {

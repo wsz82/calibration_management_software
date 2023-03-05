@@ -6,9 +6,9 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import spio2023.cms.api.database.procedure.ProcedureData;
 import spio2023.cms.api.repository.ProcedureRepository;
 import spio2023.cms.api.rest.SuperController;
-import spio2023.cms.database.procedure.ProcedureData;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 

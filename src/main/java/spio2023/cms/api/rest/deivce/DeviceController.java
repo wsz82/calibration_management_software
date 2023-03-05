@@ -8,10 +8,10 @@ import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import spio2023.cms.api.database.device.TestDevice;
 import spio2023.cms.api.repository.DeviceRepository;
 import spio2023.cms.api.rest.SuperController;
 import spio2023.cms.api.rest.procedure.ProcedureController;
-import spio2023.cms.database.device.TestDevice;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 

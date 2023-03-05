@@ -4,14 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
-import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import spio2023.cms.api.database.calibration.Calibration;
 import spio2023.cms.api.repository.CalibrationRepository;
 import spio2023.cms.api.rest.SuperController;
-import spio2023.cms.database.calibration.Calibration;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
@@ -42,12 +40,12 @@ public class CalibrationController extends SuperController<Calibration, Calibrat
                 .body(entityModel);
     }
 
-    @Override
-    protected Link[] additionalLinks(Calibration entity) {
-        return new Link[]{
-                linkTo(methodOn(ControlPointToInputsWithResultsController.class).all()).withRel(collectionName())
-        };
-    }
+//    @Override
+//    protected Link[] additionalLinks(Calibration entity) {
+//        return new Link[]{
+//                linkTo(methodOn(ControlPointToInputsWithResultsController.class).all()).withRel(collectionName())
+//        };
+//    }
 
     @Override
     protected CalibrationController getController() {
