@@ -1,8 +1,6 @@
 package spio2023.cms.api.database.unit;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 import spio2023.cms.api.database.BaseEntity;
 
@@ -17,9 +15,13 @@ import java.util.stream.Collectors;
 @ToString
 
 @Entity
-public class ControlPoint extends BaseEntity {
+public class ControlPoint implements BaseEntity {
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Parameter> parameters;
 
     public ControlPoint(spio2023.cms.model.unit.ControlPoint model) {

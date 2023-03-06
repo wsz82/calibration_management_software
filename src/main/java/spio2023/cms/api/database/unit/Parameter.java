@@ -1,6 +1,8 @@
 package spio2023.cms.api.database.unit;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.*;
 import spio2023.cms.api.database.BaseEntity;
 
@@ -11,7 +13,11 @@ import spio2023.cms.api.database.BaseEntity;
 @ToString
 
 @Entity
-public class Parameter extends BaseEntity {
+public class Parameter implements BaseEntity {
+
+    @Id
+    @GeneratedValue
+    private Long id;
 
     private String prefix;
 

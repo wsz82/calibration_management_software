@@ -19,7 +19,6 @@ import java.util.Map;
 public class SampleData_BC06 {
 
     public static Procedure procedure() {
-        var testedDevice = thermometer_BC06();
         var temperature = temperature();
         var controlPoints = Map.of(
                 temperature, List.of(
@@ -30,7 +29,7 @@ public class SampleData_BC06 {
         );
         var settings = new Settings(5, false);
         var temperaturePoints = controlPoints.get(temperature);
-        return new Procedure(settings, testedDevice, controlPoints, Arrays.asList(
+        return new Procedure(settings, thermometer_BC06(), thermometer_P755(), controlPoints, Arrays.asList(
                 new DisplayStep("Kalibracja termometru rtęciowego"),
                 new DisplayStep("Włącz komorę klimatyczną i ustaw temperaturę na -15"),
                 new DisplayStep("Zmierz naprzemiennie temperaturę termometrem wzorcowym oraz kalibrowanym"),

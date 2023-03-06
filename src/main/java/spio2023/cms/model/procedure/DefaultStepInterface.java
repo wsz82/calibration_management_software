@@ -21,12 +21,12 @@ public class DefaultStepInterface implements StepInterface {
 
     @Override
     public Double[] getReferencedInput() {
-        return provideInput(settings.getMeasurementsNumber(), referenceInputs);
+        return provideInput(settings.getMeasurementSeries(), referenceInputs);
     }
 
     @Override
     public Double[] getCheckedInput() {
-        return provideInput(settings.getMeasurementsNumber(), testInputs);
+        return provideInput(settings.getMeasurementSeries(), testInputs);
     }
 
     private Double[] provideInput(int measurementsNumber, Stack<Double> source) {

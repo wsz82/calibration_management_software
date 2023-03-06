@@ -1,9 +1,6 @@
 package spio2023.cms.api.database.instrument;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.*;
 import spio2023.cms.api.database.BaseEntity;
 import spio2023.cms.api.database.unit.MeasurementType;
@@ -19,12 +16,16 @@ import java.util.stream.Collectors;
 @ToString
 
 @Entity
-public class MeasurementTypeToReferenceScopes extends BaseEntity {
+public class MeasurementTypeToReferenceScopes implements BaseEntity {
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private MeasurementType measurementType;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReferenceScope> scopes;
 
     public MeasurementTypeToReferenceScopes(Map.Entry<spio2023.cms.model.unit.MeasurementType, List<spio2023.cms.model.instrument.ReferenceScope>> model) {

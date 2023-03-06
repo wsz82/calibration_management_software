@@ -1,8 +1,6 @@
 package spio2023.cms.api.database.results;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 import spio2023.cms.api.database.BaseEntity;
 
@@ -16,12 +14,16 @@ import java.util.stream.Collectors;
 @ToString
 
 @Entity
-public class Inputs extends BaseEntity {
+public class Inputs implements BaseEntity {
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DoubleValue> referenceDoubleValues;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DoubleValue> testDoubleValues;
 
     public Inputs(spio2023.cms.model.procedure.results.Inputs model) {

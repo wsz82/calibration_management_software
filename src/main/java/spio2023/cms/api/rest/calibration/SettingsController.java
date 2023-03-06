@@ -6,14 +6,14 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import spio2023.cms.api.database.calibration.Settings;
+import spio2023.cms.api.database.procedure.ProcedureSettings;
 import spio2023.cms.api.repository.SettingsRepository;
 import spio2023.cms.api.rest.SuperController;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
-public class SettingsController extends SuperController<Settings, SettingsController> {
+public class SettingsController extends SuperController<ProcedureSettings, SettingsController> {
 
     private static final String settings = "settings";
     private static final String setting = "setting";
@@ -23,12 +23,12 @@ public class SettingsController extends SuperController<Settings, SettingsContro
     }
 
     @GetMapping("/" + settings)
-    public CollectionModel<EntityModel<Settings>> all() {
+    public CollectionModel<EntityModel<ProcedureSettings>> all() {
         return getAll();
     }
 
     @GetMapping("/" + settings + "/{id}")
-    public EntityModel<Settings> one(@PathVariable Long id) {
+    public EntityModel<ProcedureSettings> one(@PathVariable Long id) {
         return getOne(id);
     }
 

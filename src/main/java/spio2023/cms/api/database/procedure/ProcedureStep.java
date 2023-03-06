@@ -1,8 +1,6 @@
 package spio2023.cms.api.database.procedure;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.*;
 import spio2023.cms.api.database.BaseEntity;
 import spio2023.cms.api.database.unit.ControlPoint;
@@ -17,13 +15,17 @@ import spio2023.cms.model.procedure.step.Step;
 @ToString
 
 @Entity
-public class ProcedureStep extends BaseEntity {
+public class ProcedureStep implements BaseEntity {
+
+    @Id
+    @GeneratedValue
+    private Long id;
 
     private String type;
 
     private String message;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private ControlPoint controlPoint;
 
     public ProcedureStep(Step input) {

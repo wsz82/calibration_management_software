@@ -1,8 +1,6 @@
 package spio2023.cms.api.database.unit;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.*;
 import spio2023.cms.api.database.BaseEntity;
 
@@ -13,12 +11,16 @@ import spio2023.cms.api.database.BaseEntity;
 @ToString
 
 @Entity
-public class Scope extends BaseEntity {
+public class Scope implements BaseEntity {
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Parameter minimumIncluded;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Parameter maximumExcluded;
 
     public Scope(spio2023.cms.model.scope.Scope model) {

@@ -19,7 +19,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class DeviceController extends SuperController<TestDevice, DeviceController> {
 
     private static final String devices = "devices";
-    private static final String device = "spio2023/cms/api/model/device";
+    private static final String device = "device";
 
     protected DeviceController(@Autowired DeviceRepository repository) {
         super(repository);

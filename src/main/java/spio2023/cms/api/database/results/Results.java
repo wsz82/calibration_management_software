@@ -1,8 +1,9 @@
 package spio2023.cms.api.database.results;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.*;
 import spio2023.cms.api.database.BaseEntity;
+import spio2023.cms.api.database.unit.ControlPoint;
 import spio2023.cms.model.unit.Prefix;
 
 @NoArgsConstructor
@@ -12,7 +13,17 @@ import spio2023.cms.model.unit.Prefix;
 @ToString
 
 @Entity
-public class Results extends BaseEntity {
+public class Results implements BaseEntity {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    private ControlPoint controlPoint;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Inputs inputs;
 
     private Prefix prefix;
 
@@ -36,7 +47,9 @@ public class Results extends BaseEntity {
 
     private boolean pass;
 
-    public Results(spio2023.cms.model.procedure.results.Results model) {
+    public Results(ControlPoint controlPoint, spio2023.cms.model.procedure.results.Results model) {
+        this.controlPoint = controlPoint;
+        this.inputs = new Inputs(model.getInputs());
         this.prefix = model.getPrefix();
         this.meanReferenceValue = model.getMeanReferenceValue();
         this.meanTestValue = model.getMeanTestValue();

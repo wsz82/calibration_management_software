@@ -15,20 +15,22 @@ import java.util.stream.Collectors;
 @ToString
 
 @Entity
-public class TestDevice extends BaseEntity {
+public class TestDevice implements BaseEntity {
+
+    @Id
+    @GeneratedValue
+    private Long id;
 
     private String model;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @MapsId
+    @OneToOne(mappedBy = "testDevice")
     private ProcedureData procedureData;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MeasurementTypeToTestScopes> measurementTypeToTestScopes;
 
-    public TestDevice(spio2023.cms.model.device.TestDevice model, ProcedureData procedureData) {
+    public TestDevice(spio2023.cms.model.device.TestDevice model) {
         this.model = model.getModel();
-        this.procedureData = procedureData;
         this.measurementTypeToTestScopes = model.getScopes().entrySet().stream()
                 .map(MeasurementTypeToTestScopes::new)
                 .collect(Collectors.toList());

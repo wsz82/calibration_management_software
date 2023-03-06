@@ -1,12 +1,13 @@
 package spio2023.cms.api.database.calibration;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.*;
 import spio2023.cms.api.database.BaseEntity;
 import spio2023.cms.api.database.procedure.ProcedureData;
+import spio2023.cms.api.database.results.Output;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -15,13 +16,20 @@ import spio2023.cms.api.database.procedure.ProcedureData;
 @ToString
 
 @Entity
-public class Calibration extends BaseEntity {
+public class Calibration implements BaseEntity {
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @MapsId
     private ProcedureData procedureData;
 
-//    @OneToMany(cascade = CascadeType.ALL)
-//    private List<ControlPointToInputsWithResults> controlPointToInputsWithResults;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ControlPointToInputs> controlPointToInputs = new ArrayList<>();
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Output output;
 
 }

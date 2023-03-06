@@ -1,8 +1,6 @@
 package spio2023.cms.api.database.instrument;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 import spio2023.cms.api.database.BaseEntity;
 
@@ -16,11 +14,15 @@ import java.util.stream.Collectors;
 @ToString
 
 @Entity
-public class ReferenceInstrument extends BaseEntity {
+public class ReferenceInstrument implements BaseEntity {
+
+    @Id
+    @GeneratedValue
+    private Long id;
 
     private String model;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MeasurementTypeToReferenceScopes> measurementTypeToReferenceScopes;
 
     public ReferenceInstrument(spio2023.cms.model.instrument.ReferenceInstrument model) {
