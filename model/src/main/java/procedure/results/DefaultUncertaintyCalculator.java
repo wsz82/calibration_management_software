@@ -2,7 +2,13 @@ package procedure.results;
 
 import device.AccuracyPattern;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.List;
+
+import static java.lang.Float.NEGATIVE_INFINITY;
+import static java.lang.Float.NaN;
 
 public class DefaultUncertaintyCalculator implements UncertaintyCalculator {
 
@@ -30,10 +36,11 @@ public class DefaultUncertaintyCalculator implements UncertaintyCalculator {
         double u1 = uncertaintyA(checkedValues, meanCheckedValue);
         double u2 = uncertaintyB();
         double u3 = uncertaintyC(meanReferencedValue);
-        double uncertainty = combinedUncertainty(u1, u2, u3);
+        double uncertainty = round(combinedUncertainty(u1, u2, u3));
+        int scale = scale(uncertainty);
 
-        double AL = meanReferencedValue - accuracy - uncertainty;
-        double AU = meanReferencedValue + accuracy + uncertainty;
+        double AL = roundToScale((meanReferencedValue - accuracy - uncertainty), scale);
+        double AU = roundToScale((meanReferencedValue + accuracy + uncertainty), scale);
 
         var pass = meanCheckedValue >= AL && meanCheckedValue <= AU;
         return new Results(inputs, meanReferencedValue, meanCheckedValue, error, u1, u2, u3, uncertainty, AL, AU, pass);
@@ -68,6 +75,32 @@ public class DefaultUncertaintyCalculator implements UncertaintyCalculator {
         return UNCERTAINTY_COVARIANT * Math.sqrt(uncertaintiesSquareSum);
     }
 
+    private double round(double value) {
+        try {
+            var bd = new BigDecimal(value);
+            bd = bd.round(new MathContext(2));
+            return bd.doubleValue();
+        } catch (NumberFormatException e) {
+            return 0.0;
+        }
+    }
+
+    private int scale(double value) {
+        var doubleStr = Double.toString(Math.abs(value));
+        var strArr = doubleStr.split("\\.");
+        return strArr[1].length();
+    }
+
+    private double roundToScale(double valueToRound, int scale) {
+        try {
+            var decimal = new BigDecimal(valueToRound);
+            decimal = decimal.setScale(scale, RoundingMode.HALF_UP);
+            return decimal.doubleValue();
+        } catch (NumberFormatException e) {
+            return 0.0;
+        }
+    }
+
     private double mean(List<Double> values) {
         double sum = 0;
         for (double value : values) {
@@ -75,5 +108,4 @@ public class DefaultUncertaintyCalculator implements UncertaintyCalculator {
         }
         return sum / values.size();
     }
-
 }

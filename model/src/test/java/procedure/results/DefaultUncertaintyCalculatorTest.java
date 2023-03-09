@@ -30,9 +30,9 @@ public class DefaultUncertaintyCalculatorTest {
         assertEquals(0.0969535971483262, results.uncertaintyA(), delta);
         assertEquals(0.002886751345948129, results.uncertaintyB(), delta);
         assertEquals(2.266111353574665, results.uncertaintyC(), delta);
-        assertEquals(4.536372559714792, results.uncertainty(), delta);
-        assertEquals(-21.53237255971479, results.lowerBoundary(), delta);
-        assertEquals(-8.459627440285207, results.upperBoundary(), delta);
+        assertEquals(4.5, results.uncertainty(), delta);
+        assertEquals(-21.5, results.lowerBoundary(), delta);
+        assertEquals(-8.5, results.upperBoundary(), delta);
         assertTrue(results.pass());
     }
 
@@ -54,9 +54,9 @@ public class DefaultUncertaintyCalculatorTest {
         assertEquals(0.0, results.uncertaintyA(), delta);
         assertEquals(0.002886751345948129, results.uncertaintyB(), delta);
         assertEquals(2.352702346947725, results.uncertaintyC(), delta);
-        assertEquals(4.705408235920308, results.uncertainty(), delta);
-        assertEquals(8.29459176407969, results.lowerBoundary(), delta);
-        assertEquals(21.70540823592031, results.upperBoundary(), delta);
+        assertEquals(4.7, results.uncertainty(), delta);
+        assertEquals(8.3, results.lowerBoundary(), delta);
+        assertEquals(21.7, results.upperBoundary(), delta);
         assertTrue(results.pass());
     }
 
@@ -77,9 +77,9 @@ public class DefaultUncertaintyCalculatorTest {
         assertEquals(0.0, results.uncertaintyA(), delta);
         assertEquals(0.2886751345948129, results.uncertaintyB(), delta);
         assertEquals(Double.NaN, results.uncertaintyC(), delta);
-        assertEquals(Double.NaN, results.uncertainty(), delta);
-        assertEquals(Double.NaN, results.lowerBoundary(), delta);
-        assertEquals(Double.NaN, results.upperBoundary(), delta);
+        assertEquals(0.0, results.uncertainty(), delta);
+        assertEquals(0.0, results.lowerBoundary(), delta);
+        assertEquals(0.0, results.upperBoundary(), delta);
         assertFalse(results.pass());
     }
 
